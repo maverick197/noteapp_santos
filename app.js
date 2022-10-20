@@ -3,6 +3,9 @@ const write = require('./write')
 const read = require('./read')
 const present = require('./present')
 const del = require('./del')
+const update = require('./update')
+
+const cmd = process.argv
 
 const data = process.argv
 
@@ -32,4 +35,15 @@ if(data[2] === "delete") {
     let del=require('./del')
     del(id,oldNote);
     console.log(read());
+}
+if(cmd[2] === "update") {
+    const note = {
+        id: cmd[3],
+        title: cmd[4],
+        body: cmd[5],
+    }
+    const oldNote=read()
+    update(note, oldNote)
+    let present = require('./present')
+    present(read())
 }
